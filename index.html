@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DHANZX SYSTEM</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: black;
+    color: #ff0033;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    margin: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    text-shadow: 0 0 10px red;
+}
+
+/* CARD */
+.card {
+    width: 90%;
+    max-width: 360px;
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(20,0,0,0.6);
+    border: 1px solid red;
+}
+
+/* INPUT */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid red;
+    background: black;
+    color: red;
+    font-weight: bold; /* ✅ biar tebal */
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(45deg, red, darkred);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* POPUP */
+.popup {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(6px);
+    background: rgba(0,0,0,0.8);
+}
+
+.popup-box {
+    width: 280px;
+    padding: 20px;
+    border-radius: 12px;
+    background: black;
+    border: 1px solid red;
+    text-align: center;
+}
+
+.spinner {
+    width: 35px;
+    height: 35px;
+    margin: 10px auto;
+    border: 3px solid rgba(255,0,0,0.2);
+    border-top: 3px solid red;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">⚠️DHANZ KENON⚠️</div>
+
+<!-- CRASH -->
+<div class="card">
+    <input type="tel" class="input" value="+62" placeholder="+62 nomor target">
+
+    <select>
+        <option>Crash Biasa</option>
+        <option>Crash Lag</option>
+        <option>Crash Lag Parah</option>
+    </select>
+
+    <button onclick="send('crash')">KIRIM CRASH</button>
+</div>
+
+<!-- BLOKIR -->
+<div class="card">
+    <input type="tel" class="input" value="+62" placeholder="+62 nomor target">
+
+    <select>
+        <option>Blokir 1 Hari</option>
+        <option>Blokir 1 Minggu</option>
+        <option>Blokir 1 Bulan</option>
+        <option>Blokir Permanen</option>
+    </select>
+
+    <button onclick="send('block')">KIRIM BLOKIR</button>
+</div>
+
+<!-- 🔥 KOTAK TAMBAHAN -->
+<div class="card" style="text-align:center; font-weight:bold;">
+    bantai musuh kalian
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+    <div class="popup-box" id="box">
+
+        <div id="title">⚠️ PROSES DIMUAT</div>
+
+        <div class="spinner" id="spinner"></div>
+
+        <div id="text">Sedang memproses...</div>
+
+        <button id="btn" onclick="closePopup()" style="display:none;margin-top:10px;">Tutup</button>
+
+    </div>
+</div>
+
+<script>
+function send(type) {
+    const inputs = document.querySelectorAll(".input");
+    const input = inputs[0];
+
+    const popup = document.getElementById("popup");
+    const title = document.getElementById("title");
+    const text = document.getElementById("text");
+    const btn = document.getElementById("btn");
+    const spinner = document.getElementById("spinner");
+    const box = document.getElementById("box");
+
+    popup.style.display = "flex";
+
+    if (input.value.trim() === "") {
+        spinner.style.display = "none";
+        title.innerText = "☠️ ERROR ☠️";
+        text.innerText = "ISI NOMOR TARGET!";
+        btn.style.display = "inline-block";
+
+        if (navigator.vibrate) navigator.vibrate([200,100,200]);
+        return;
+    }
+
+    spinner.style.display = "block";
+    btn.style.display = "none";
+
+    title.innerText = "⚠️ PROSES DIMUAT ⚠️";
+    text.innerText = "Menghubungi sistem...";
+
+    let audio = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+    audio.play();
+
+    setTimeout(() => {
+        spinner.style.display = "none";
+
+        title.innerText = "☠️ BERHASIL ☠️";
+        text.innerText = (type === "crash") ? "Crash berhasil diproses" : "Blokir berhasil diproses";
+
+        if (navigator.vibrate) navigator.vibrate([100,100,100]);
+
+        btn.style.display = "inline-block";
+    }, 2000);
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
