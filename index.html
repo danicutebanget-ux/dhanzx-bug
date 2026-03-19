@@ -34,8 +34,34 @@ body {
     border: 1px solid red;
 }
 
-/* INPUT */
-input, select {
+/* PHONE BOX */
+.phone-box {
+    display: flex;
+    margin-top: 8px;
+}
+
+.prefix {
+    padding: 10px;
+    background: black;
+    border: 1px solid red;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    font-weight: bold;
+}
+
+.phone-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 0 8px 8px 0;
+    background: black;
+    color: red;
+    font-weight: bold;
+    outline: none;
+}
+
+/* INPUT & SELECT */
+select {
     width: 100%;
     padding: 10px;
     margin-top: 8px;
@@ -43,7 +69,7 @@ input, select {
     border: 1px solid red;
     background: black;
     color: red;
-    font-weight: bold; /* ✅ biar tebal */
+    font-weight: bold;
 }
 
 /* BUTTON */
@@ -97,13 +123,16 @@ button {
 
 <body>
 
-<div class="header">⚠️DHANZ KENON⚠️</div>
+<div class="header">⚠️ DHANZX SYSTEM ⚠️</div>
 
 <!-- CRASH -->
 <div class="card">
-    <input type="tel" class="input" value="+62" placeholder="+62 nomor target">
+    <div class="phone-box">
+        <div class="prefix">+62</div>
+        <input type="tel" id="phone1" placeholder="812xxxxxxx">
+    </div>
 
-    <select>
+    <select id="mode1">
         <option>Crash Biasa</option>
         <option>Crash Lag</option>
         <option>Crash Lag Parah</option>
@@ -114,9 +143,12 @@ button {
 
 <!-- BLOKIR -->
 <div class="card">
-    <input type="tel" class="input" value="+62" placeholder="+62 nomor target">
+    <div class="phone-box">
+        <div class="prefix">+62</div>
+        <input type="tel" id="phone2" placeholder="812xxxxxxx">
+    </div>
 
-    <select>
+    <select id="mode2">
         <option>Blokir 1 Hari</option>
         <option>Blokir 1 Minggu</option>
         <option>Blokir 1 Bulan</option>
@@ -126,15 +158,14 @@ button {
     <button onclick="send('block')">KIRIM BLOKIR</button>
 </div>
 
-<!-- 🔥 KOTAK TAMBAHAN -->
+<!-- KOTAK TAMBAHAN -->
 <div class="card" style="text-align:center; font-weight:bold;">
-    bantai musuh kalian
+    bantai musuk kalian
 </div>
 
 <!-- POPUP -->
 <div class="popup" id="popup">
-    <div class="popup-box" id="box">
-
+    <div class="popup-box">
         <div id="title">⚠️ PROSES DIMUAT</div>
 
         <div class="spinner" id="spinner"></div>
@@ -142,25 +173,26 @@ button {
         <div id="text">Sedang memproses...</div>
 
         <button id="btn" onclick="closePopup()" style="display:none;margin-top:10px;">Tutup</button>
-
     </div>
 </div>
 
 <script>
 function send(type) {
-    const inputs = document.querySelectorAll(".input");
-    const input = inputs[0];
+    const phone1 = document.getElementById("phone1");
+    const phone2 = document.getElementById("phone2");
+
+    let input = (type === "crash") ? phone1 : phone2;
+    let number = input.value.trim();
 
     const popup = document.getElementById("popup");
     const title = document.getElementById("title");
     const text = document.getElementById("text");
     const btn = document.getElementById("btn");
     const spinner = document.getElementById("spinner");
-    const box = document.getElementById("box");
 
     popup.style.display = "flex";
 
-    if (input.value.trim() === "") {
+    if (number === "") {
         spinner.style.display = "none";
         title.innerText = "☠️ ERROR ☠️";
         text.innerText = "ISI NOMOR TARGET!";
