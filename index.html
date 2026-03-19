@@ -60,7 +60,7 @@ body {
     outline: none;
 }
 
-/* INPUT & SELECT */
+/* SELECT */
 select {
     width: 100%;
     padding: 10px;
@@ -123,7 +123,7 @@ button {
 
 <body>
 
-<div class="header">⚠️ DHANZX SYSTEM ⚠️</div>
+<div class="header">⚠️DHANZX BUG⚠️</div>
 
 <!-- CRASH -->
 <div class="card">
@@ -132,7 +132,7 @@ button {
         <input type="tel" id="phone1" placeholder="812xxxxxxx">
     </div>
 
-    <select id="mode1">
+    <select>
         <option>Crash Biasa</option>
         <option>Crash Lag</option>
         <option>Crash Lag Parah</option>
@@ -148,7 +148,7 @@ button {
         <input type="tel" id="phone2" placeholder="812xxxxxxx">
     </div>
 
-    <select id="mode2">
+    <select>
         <option>Blokir 1 Hari</option>
         <option>Blokir 1 Minggu</option>
         <option>Blokir 1 Bulan</option>
@@ -160,7 +160,7 @@ button {
 
 <!-- KOTAK TAMBAHAN -->
 <div class="card" style="text-align:center; font-weight:bold;">
-    bantai musuk kalian
+    bantai musuh kalian
 </div>
 
 <!-- POPUP -->
@@ -192,10 +192,11 @@ function send(type) {
 
     popup.style.display = "flex";
 
+    // ✅ VALIDASI BARU
     if (number === "") {
         spinner.style.display = "none";
-        title.innerText = "☠️ ERROR ☠️";
-        text.innerText = "ISI NOMOR TARGET!";
+        title.innerText = "⚠️ PERINGATAN ⚠️";
+        text.innerText = "MASUKKAN NOMOR TARGET!";
         btn.style.display = "inline-block";
 
         if (navigator.vibrate) navigator.vibrate([200,100,200]);
@@ -207,9 +208,6 @@ function send(type) {
 
     title.innerText = "⚠️ PROSES DIMUAT ⚠️";
     text.innerText = "Menghubungi sistem...";
-
-    let audio = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
-    audio.play();
 
     setTimeout(() => {
         spinner.style.display = "none";
